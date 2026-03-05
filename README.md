@@ -61,6 +61,8 @@ Or create your own (see [curriculum format](docs/curriculum-format.md)).
 | `/log [notes]` | Log offline study |
 | `/stuck` | Signal you're struggling |
 | `/break` | Take a break |
+| `/feedback [note]` | Log personal feedback locally |
+| `/suggest [improvement]` | Submit improvement as GitHub issue |
 
 ## 📁 File Structure
 
@@ -93,9 +95,16 @@ See [customization guide](docs/customization.md) for details.
 
 ## 🤝 Contributing
 
-1. Fork this repo
-2. Use it for your own learning
-3. Find improvements? PR them back!
+Found a bug or have an idea? Use the built-in feedback system:
+
+```bash
+/suggest Add support for audio pronunciations
+/suggest Fix the quiz timer being too short
+```
+
+This creates a GitHub issue on the main repo. Improvements get reviewed and merged back in — making the template better for everyone.
+
+See [Feedback Loop](docs/feedback-loop.md) for detailed documentation.
 
 ## 📄 License
 

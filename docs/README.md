@@ -61,7 +61,48 @@ The tutor will guide you through lessons, quiz you, and track your progress.
 | `/review` | Spaced repetition review session |
 | `/reset` | Reset progress (use with caution!) |
 | `/curriculum` | Show current curriculum info |
+| `/feedback [note]` | Log feedback/notes locally to FEEDBACK.md |
+| `/suggest [improvement]` | Create GitHub issue on main repo |
+| `/review-feedback` | Show pending feedback items |
 | `/help` | List all available commands |
+
+## Feedback System
+
+The AI Tutor Starter Kit includes a feedback loop that lets students contribute improvements back to the community.
+
+### Commands
+
+| Command | Description |
+|---------|-------------|
+| `/feedback [note]` | Log a personal note or observation locally |
+| `/suggest [improvement]` | Submit an improvement idea as a GitHub issue |
+| `/review-feedback` | View pending feedback items |
+
+### How It Works
+
+1. **Student uses the tutor** → encounters a bug, has an idea, or finds something confusing
+2. **Student uses `/suggest`** → creates a GitHub issue on the main repo
+3. **Maintainers review** → issues are triaged and potentially implemented
+4. **Improvement merges** → gets merged into the main template
+5. **All students benefit** → update their local copy
+
+### Local vs. Public Feedback
+
+- **`/feedback`** — Personal notes stored in `FEEDBACK.md` in your workspace. Good for private reflections or things that are specific to your setup.
+- **`/suggest`** — Creates a public GitHub issue. Good for bugs, feature ideas, or improvements that would benefit all users.
+
+### Example
+
+```
+You: /suggest Add support for audio pronunciations
+→ Creates GitHub issue: "Add support for audio pronunciations"
+→ Link posted to your chat
+
+You: /feedback The quiz timer feels too short
+→ Logged to FEEDBACK.md for your reference
+```
+
+See [Feedback Loop](feedback-loop.md) for detailed workflow.
 
 ### Example Session
 
