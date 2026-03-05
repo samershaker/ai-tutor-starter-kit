@@ -2,173 +2,185 @@
 
 The AI Tutor uses YAML files to define curricula. This guide walks you through creating your own custom learning paths.
 
-## YAML Format Overview
+## YAML Structure Overview
 
-Curriculum files use a clean, human-readable YAML structure. Each curriculum defines lessons, questions, and metadata.
-
-### Required Fields
-
-Every curriculum **must** include these top-level fields:
+Every curriculum follows this structure:
 
 ```yaml
-name: "Course Title"          # Display name
-version: "1.0"                # Curriculum version
-description: "What this covers"
-units:                        # Array of learning units
-  - title: "Unit Name"
-    lessons:                  # Array of lessons
-      - id: "lesson_1"
-        title: "Lesson Title"
-        content: "Lesson explanation..."
+curriculum:
+  id: "unique-id"
+  title: "Course Title"
+  description: "What this covers"
+  difficulty: beginner | intermediate | advanced
+  estimated_hours: 40
+
+  source:                          # Optional: reference material
+    type: book | course | video
+    url: "https://..."
+    pdf: "https://..."
+    repo: "https://..."
+
+  tracks:                          # Major sections
+    - id: "track-id"
+      title: "Track Title"
+      description: "What this track covers"
+      chapters:                    # Lessons within the track
+        - id: "chapter-id"
+          title: "Chapter Title"
+          objectives:
+            - "Learning objective 1"
+            - "Learning objective 2"
+          resources:
+            - type: reading
+              ref: "Chapter 1"
+          projects:
+            - "Hands-on project description"
+          prereqs: []              # IDs of prerequisite chapters
+          estimated_hours: 3
+
+  milestones:                      # Celebrations at key points
+    - after: [chapter-id-1, chapter-id-2]
+      title: "Milestone Name! 🎉"
+      message: "Encouraging message"
+
+  completion:                      # Final completion message
+    title: "Course Complete! 🎓"
+    message: "Congratulations message"
 ```
 
-### Optional Fields
-
-Add these to enrich the learning experience:
+## Full Example: Spanish Essentials
 
 ```yaml
-# Metadata
-author: "Your Name"
-language: "en"
-tags: ["programming", "python", "beginner"]
-estimated_hours: 10
+curriculum:
+  id: spanish-essentials
+  title: "Spanish Essentials"
+  description: "Basic Spanish vocabulary and phrases for travelers"
+  difficulty: beginner
+  estimated_hours: 5
 
-# Settings
-difficulty: "beginner"        # beginner, intermediate, advanced
-prerequisites: ["unit_1"]     # Required lesson IDs
+  source:
+    type: course
+    url: "https://example.com/spanish"
 
-# Per-unit settings
-units:
-  - title: "Unit Name"
-    order: 1                  # Explicit ordering
-    weight: 2                 # Relative importance (affects quiz frequency)
+  tracks:
+    - id: greetings
+      title: "Greetings & Introductions"
+      description: "Learn to say hello and introduce yourself"
+
+      chapters:
+        - id: basic-greetings
+          title: "Basic Greetings"
+          objectives:
+            - "Know the common Spanish greetings"
+            - "Understand when to use formal vs informal greetings"
+          resources:
+            - type: reading
+              ref: "Unit 1, Lesson 1"
+          projects:
+            - "Practice greeting 3 people using different times of day"
+          prereqs: []
+          estimated_hours: 1
+
+        - id: introductions
+          title: "Introducing Yourself"
+          objectives:
+            - "Say your name and ask for someone else's"
+            - "Use basic pleasantries (mucho gusto, etc.)"
+          resources:
+            - type: reading
+              ref: "Unit 1, Lesson 2"
+          projects:
+            - "Write a 5-line self-introduction in Spanish"
+          prereqs: [basic-greetings]
+          estimated_hours: 1
+
+    - id: everyday
+      title: "Everyday Phrases"
+      description: "Common phrases for daily interactions"
+
+      chapters:
+        - id: ordering-food
+          title: "Ordering Food & Drinks"
+          objectives:
+            - "Order at a restaurant in Spanish"
+            - "Ask for the check"
+          resources:
+            - type: reading
+              ref: "Unit 2, Lesson 1"
+          projects:
+            - "Role-play ordering a full meal"
+          prereqs: [introductions]
+          estimated_hours: 1.5
+
+  milestones:
+    - after: [basic-greetings, introductions]
+      title: "Social Butterfly! 🦋"
+      message: "You can introduce yourself in Spanish!"
+
+  completion:
+    title: "Travel Ready! ✈️"
+    message: "You know enough Spanish to navigate basic travel situations. ¡Buen viaje!"
 ```
 
-## Full Example Curriculum
+## Field Reference
 
-Here's a complete example for learning basic Spanish:
+### Curriculum (top-level)
 
-```yaml
-name: "Spanish Essentials"
-version: "1.0"
-author: "Your Name"
-description: "Basic Spanish vocabulary and phrases for travelers"
-language: "es"
-difficulty: "beginner"
-estimated_hours: 5
-tags: ["language", "spanish", "travel"]
+| Field | Required | Description |
+|-------|----------|-------------|
+| `id` | Yes | Unique identifier (used in `/load-curriculum`) |
+| `title` | Yes | Display name |
+| `description` | Yes | Brief summary |
+| `difficulty` | No | `beginner`, `intermediate`, or `advanced` |
+| `estimated_hours` | No | Total estimated study time |
+| `source` | No | Reference material (book, course, etc.) |
+| `tracks` | Yes | Array of learning tracks |
+| `milestones` | No | Celebration points |
+| `completion` | No | Final completion message |
 
-units:
-  - title: "Greetings & Introductions"
-    lessons:
-      - id: "greetings_1"
-        title: "Basic Greetings"
-        content: |
-          # Basic Greetings
-            
-          - **Hola** = Hello
-          - **Buenos días** = Good morning
-          - **Buenas tardes** = Good afternoon
-          - **Buenas noches** = Good evening/night
-          
-          Use "Buenos días" before noon, "Buenas tardes" after.
-        questions:
-          - id: "g1_q1"
-            type: "multiple_choice"
-            question: "How do you say 'Good morning' in Spanish?"
-            options:
-              - "Hola"
-              - "Buenos días"
-              - "Buenas noches"
-            correct: 1
-            explanation: "'Buenos días' literally means 'good days' and is used in the morning."
-            
-      - id: "greetings_2"
-        title: "Introducing Yourself"
-        content: |
-          # Introducing Yourself
-            
-          - **Me llamo...** = My name is...
-          - **Soy...** = I am...
-          - **Mucho gusto** = Nice to meet you
-          - **¿Cómo estás?** = How are you?
-        questions:
-          - id: "g2_q1"
-            type: "fill_blank"
-            question: "___ means 'My name is' in Spanish."
-            answer: "Me llamo"
-            acceptable: ["Me llamo", "Me llamo."]
-```
+### Tracks
 
-## Question Types
+| Field | Required | Description |
+|-------|----------|-------------|
+| `id` | Yes | Unique track identifier |
+| `title` | Yes | Track display name |
+| `description` | No | What this track covers |
+| `chapters` | Yes | Array of chapters/lessons |
 
-| Type | Description | Example |
-|------|-------------|---------|
-| `multiple_choice` | Select from options | "What is 'hello' in Spanish?" |
-| `fill_blank` | Type the answer | "___ means 'hello'" |
-| `true_false` | True or false statement | "‘Hola' means 'goodbye'" |
-| `open_ended` | Free-form response | "Explain the concept of..." |
+### Chapters
 
-### Multiple Choice Structure
-
-```yaml
-questions:
-  - id: "q1"
-    type: "multiple_choice"
-    question: "What is 2 + 2?"
-    options:
-      - "3"
-      - "4"
-      - "5"
-    correct: 1          # 0-indexed (0=first option)
-    explanation: "2 + 2 equals 4."
-```
-
-### Fill in the Blank Structure
-
-```yaml
-questions:
-  - id: "q2"
-    type: "fill_blank"
-    question: "The Spanish word for 'cat' is ___."
-    answer: "gato"
-    acceptable: ["gato", "el gato"]  # Alternative acceptable answers
-    case_sensitive: false
-```
+| Field | Required | Description |
+|-------|----------|-------------|
+| `id` | Yes | Unique chapter identifier |
+| `title` | Yes | Chapter display name |
+| `objectives` | Yes | Learning objectives (array of strings) |
+| `resources` | No | Reference materials |
+| `projects` | No | Hands-on exercises |
+| `prereqs` | No | Array of prerequisite chapter IDs |
+| `estimated_hours` | No | Estimated study time |
 
 ## Tips for Good Curriculum Design
 
 ### 1. Start Simple
-- First lesson should be accessible to true beginners
-- Build complexity gradually
+- First chapter should be accessible to beginners
+- Build complexity gradually through prerequisites
 
-### 2. Mix Question Types
-- Use multiple choice for recall
-- Use fill-in-the-blank for active recall
-- Use open-ended for deeper understanding
+### 2. Keep Chapters Focused
+- One main concept per chapter
+- 2-5 clear objectives
+- 1-3 projects for hands-on practice
 
-### 3. Include Explanations
-Always provide explanations for answers — this is where the real learning happens:
+### 3. Use Prerequisites
+- Chain chapters that build on each other
+- The tutor uses prereqs to ensure proper learning order
 
-```yaml
-explanation: "The past tense of 'go' is 'went'. This is an irregular verb..."
-```
+### 4. Add Milestones
+- Place them after completing major sections
+- Keep messages encouraging and specific
 
-### 4. Keep Lessons Focused
-- One main concept per lesson
-- 3-5 questions per lesson
-- 200-500 words of content per lesson
-
-### 5. Use Spacing
-- Put related questions in different lessons
-- Review key concepts across multiple units
-
-### 6. Test Your Curriculum
-```bash
-/tutor validate curriculum.yaml
-```
-
-This catches syntax errors and missing fields before you load it.
+### 5. Include Projects
+- Practical application cements learning
+- Projects should be doable within the chapter's time estimate
 
 ---
 
