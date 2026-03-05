@@ -1,0 +1,174 @@
+# Machine Learning Systems Curriculum
+# Based on Harvard's CS249r / MIT Press textbook
+
+curriculum:
+  id: ml-systems
+  title: "Machine Learning Systems"
+  description: "Production ML engineering - bridging theory and practical systems"
+  
+  source:
+    type: book
+    url: "https://mlsysbook.ai/book/"
+    pdf: "https://mlsysbook.ai/assets/downloads/Machine-Learning-Systems.pdf"
+    repo: "https://github.com/harvard-edge/cs249r_book"
+  
+  difficulty: intermediate
+  estimated_hours: 40
+  
+  tracks:
+    - id: foundations
+      title: "Part 1: Foundations"
+      description: "Core concepts of ML systems"
+      
+      chapters:
+        - id: intro
+          title: "Introduction to ML Systems"
+          objectives:
+            - "Understand the difference between ML research and ML engineering"
+            - "Identify the components of an end-to-end ML system"
+            - "Know why systems thinking matters for ML"
+          resources:
+            - type: reading
+              ref: "Chapter 1"
+          projects:
+            - "Diagram an ML system you use daily (recommendations, search, etc.)"
+            - "List 5 ways the system could fail that aren't model accuracy"
+          prereqs: []
+          estimated_hours: 2
+        
+        - id: ml-lifecycle
+          title: "ML Lifecycle & Workflow"
+          objectives:
+            - "Understand the full ML lifecycle (data → training → deployment → monitoring)"
+            - "Identify bottlenecks in ML workflows"
+            - "Know the difference between ML in research vs production"
+          resources:
+            - type: reading
+              ref: "Chapter 2"
+          projects:
+            - "Map out the lifecycle of a real ML product"
+          prereqs: [intro]
+          estimated_hours: 3
+        
+        - id: data-engineering
+          title: "Data Engineering for ML"
+          objectives:
+            - "Understand data pipelines and their importance"
+            - "Know common data quality issues and how to detect them"
+            - "Understand feature engineering and feature stores"
+          resources:
+            - type: reading
+              ref: "Chapter 3"
+          projects:
+            - "Design a data pipeline for a simple ML use case"
+            - "Identify 3 data quality checks you'd implement"
+          prereqs: [ml-lifecycle]
+          estimated_hours: 4
+
+    - id: training
+      title: "Part 2: Training Systems"
+      description: "Building and optimizing training pipelines"
+      
+      chapters:
+        - id: training-infra
+          title: "Training Infrastructure"
+          objectives:
+            - "Understand distributed training concepts"
+            - "Know when to use GPUs vs TPUs vs CPUs"
+            - "Understand training optimization techniques"
+          resources:
+            - type: reading
+              ref: "Chapter 4"
+          prereqs: [data-engineering]
+          estimated_hours: 4
+        
+        - id: model-optimization
+          title: "Model Optimization"
+          objectives:
+            - "Understand quantization and pruning"
+            - "Know when to apply different optimization techniques"
+            - "Understand the accuracy vs efficiency tradeoff"
+          resources:
+            - type: reading
+              ref: "Chapter 5"
+          prereqs: [training-infra]
+          estimated_hours: 4
+
+    - id: deployment
+      title: "Part 3: Deployment & Inference"
+      description: "Getting models into production"
+      
+      chapters:
+        - id: inference
+          title: "Inference Optimization"
+          objectives:
+            - "Understand inference acceleration techniques"
+            - "Know batch vs real-time inference tradeoffs"
+            - "Understand model serving architectures"
+          resources:
+            - type: reading
+              ref: "Chapter 6"
+          prereqs: [model-optimization]
+          estimated_hours: 4
+        
+        - id: deployment-patterns
+          title: "Deployment Patterns"
+          objectives:
+            - "Understand blue-green and canary deployments"
+            - "Know how to A/B test ML models"
+            - "Understand rollback strategies"
+          resources:
+            - type: reading
+              ref: "Chapter 7"
+          prereqs: [inference]
+          estimated_hours: 3
+
+    - id: operations
+      title: "Part 4: ML Operations"
+      description: "Running ML in production"
+      
+      chapters:
+        - id: monitoring
+          title: "Monitoring & Observability"
+          objectives:
+            - "Understand ML-specific monitoring needs"
+            - "Know how to detect model drift"
+            - "Understand alerting strategies for ML systems"
+          resources:
+            - type: reading
+              ref: "Chapter 8"
+          prereqs: [deployment-patterns]
+          estimated_hours: 3
+        
+        - id: mlops
+          title: "MLOps & Automation"
+          objectives:
+            - "Understand CI/CD for ML"
+            - "Know how to automate retraining"
+            - "Understand ML pipeline orchestration"
+          resources:
+            - type: reading
+              ref: "Chapter 9"
+          prereqs: [monitoring]
+          estimated_hours: 4
+
+  milestones:
+    - after: [intro, ml-lifecycle, data-engineering]
+      title: "Foundations Complete! 🎉"
+      message: "You understand the basics of ML systems. Ready for the deep stuff!"
+    
+    - after: [training-infra, model-optimization]
+      title: "Training Expert! 🔥"
+      message: "You can build and optimize training pipelines."
+    
+    - after: [inference, deployment-patterns]
+      title: "Deployment Ready! 🚀"
+      message: "You know how to get models into production."
+    
+    - after: [monitoring, mlops]
+      title: "Full Stack ML Engineer! 🏆"
+      message: "You understand the complete ML systems stack."
+
+  completion:
+    title: "ML Systems Master! 🎓"
+    message: "You've completed the entire curriculum. You now think in systems, not just models. Go build something amazing!"

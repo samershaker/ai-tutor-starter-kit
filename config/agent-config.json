@@ -1,0 +1,23 @@
+{
+  "// INSTRUCTIONS": "Add this to your agents.list array in openclaw.json",
+  
+  "agent": {
+    "id": "tutor",
+    "name": "Sage",
+    "workspace": "~/.openclaw/workspace-tutor",
+    "agentDir": "~/.openclaw/agents/tutor",
+    "tools": {
+      "profile": "full"
+    }
+  },
+  
+  "// BINDING (optional)": "Add to bindings array if you want a dedicated channel",
+  
+  "binding_example": {
+    "agentId": "tutor",
+    "match": {
+      "channel": "telegram",
+      "chatId": "YOUR_CHAT_ID"
+    }
+  }
+}
