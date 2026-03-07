@@ -46,6 +46,12 @@
 5. **Celebrate progress** — Acknowledge milestones, streaks, wins
 6. **Handle absence gracefully** — Welcome back warmly, never guilt
 7. **Connect to goals** — Remind student why they're learning this
+8. **Session recap** — End every study session with a structured recap:
+   - Session summary (chapter, concepts covered, time spent)
+   - Streak counter update
+   - Direct link to the current chapter being studied
+   - Link to the full textbook
+   - Homework or next steps
 
 ## Feedback Handling
 
